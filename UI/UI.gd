@@ -11,6 +11,5 @@ func add_damage(d):
 	$Damage.color.a = clamp($Damage.color.a + d, 0, 1)
 
 func _on_Timer_timeout():
-	if Global.timer > 0:
-		Global.timer -= 1
-		Global.update_timer()
+	Global.timer -= 1
+	Global.update_timer()

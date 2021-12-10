@@ -49,9 +49,8 @@ func _physics_process(_delta):
 		get_tree().change_scene("res://UI/Game_Over.tscn")
 		
 	if get_node("/root/Game/Target_Container").get_child_count() <= 0 and get_node("/root/Game/Drone Container").get_child_count() <= 0:
-		get_tree().change_scene("res://UI/Win.tcsn")
-	
-	
+		get_tree().change_scene("res://UI/Win.tscn")
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
