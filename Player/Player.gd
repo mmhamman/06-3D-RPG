@@ -31,11 +31,25 @@ func _physics_process(_delta):
 	velocity = velocity.normalized() * clamp(current_speed, 0, max_speed)
 	velocity.y = falling
 	
-	$AnimationTree.set("parameters/Idle_Run/blend_amount", current_speed / max_speed)
+	if not $AnimationPlayer.is_playing():
+		$AnimationTree.active = true
+		$AnimationTree.set("parameters/Idle_Run/blend_amount", current_speed / max_speed)
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
-	if Input.is_action_just_pressed("shoot") and Target != null and Target.is_in_group("Target"):
-		Target.die()
+	if Input.is_action_just_pressed("shoot"):
+		$AnimationTree.active = false
+		$AnimationPlayer.play("Shoot")
+		if Target != null and Target.is_in_group("Target"):
+			Target.die()
+			
+	if global_transform.origin.y <= -15:
+		get_tree().change_scene("res://UI/Game_Over.tscn")
+		
+	if Global.timer < 0:
+		get_tree().change_scene("res://UI/Game_Over.tscn")
+		
+	if get_node("/root/Game/Target_Container").get_child_count() <= 0 and get_node("/root/Game/Drone Container").get_child_count() <= 0:
+		get_tree().change_scene("res://UI/Win.tcsn")
 	
 	
 func _input(event):
@@ -57,3 +71,7 @@ func get_input():
 		input_dir += Camera.global_transform.basis.x
 	input_dir = input_dir.normalized()
 	return input_dir
+
+func damage():
+	Global.update_score(-5)
+	get_node("/root/Game/UI").add_damage(0.5)

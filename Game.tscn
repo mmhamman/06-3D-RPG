@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://NPC/NPC.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/Dialogue.gd" type="Script" id=7]
 [ext_resource path="res://UI/UI.gd" type="Script" id=8]
+[ext_resource path="res://Drone/Drone.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.5
@@ -70,6 +71,11 @@ transform = Transform( 3.91863, 0.0383548, -4.54345, -0.0154286, 5.99986, 0.0373
 [node name="Target5" parent="Target_Container" instance=ExtResource( 4 )]
 transform = Transform( -4.77338, 0.0103507, -3.63521, -0.0154286, 5.99986, 0.0373428, 3.63519, 0.0390562, -4.77325, 19.5645, 6.67997, -47.4363 )
 
+[node name="Drone Container" type="Spatial" parent="."]
+
+[node name="Drone" parent="Drone Container" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 100 )
+
 [node name="NPC" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.2767, 0, -8.63346 )
 
@@ -81,6 +87,14 @@ shape = SubResource( 3 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 8 )
+
+[node name="Damage" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Background" type="ColorRect" parent="UI"]
 anchor_right = 1.0
